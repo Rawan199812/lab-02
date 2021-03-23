@@ -70,7 +70,7 @@ $(document).ready(function () {
 // event for page1 button
 $('#page1').on('click', function () {
 
-    console.log('hi');
+
     $('select').empty();
     $('ul').empty();
     readJson(1);
@@ -90,7 +90,6 @@ $('#page1').on('click', function () {
 //event for page2 button
 $('#page2').on('click', function () {
 
-    console.log('hello');
 
     //call the render for page2 renderPage2();
     $('select').empty();
