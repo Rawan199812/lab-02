@@ -10,7 +10,7 @@ function Horns(item) {
 Horns.allArr = [];
 
 Horns.prototype.renderList = function () {
-    $('ul').append(`<li><img src=${this.image_url}></li><div>${this.title}</div><p>${this.description}</p>
+    $('ul').append(`<li><img src=${this.image_url}><div>${this.title}</div><p>${this.description}</p></li>
     
     `);
 
@@ -18,39 +18,46 @@ Horns.prototype.renderList = function () {
 Horns.prototype.renderOptions = function () {
     if (keywordAr.includes(this.keyword)) {
 
-    }else{
+    } else {
         $('select').append(`<option>${this.keyword}</option>`);
         keywordAr.push(this.keyword);
-        
+
     }
 }
-$(document).ready(function () {
+function readJson(pageNum) {
+
+
+
+    // const readJson = (pageNum) => {
+    console.log(pageNum);
+    Horns.allArr = [];
+    keywordAr = [];
     const ajaxSettings = {
         method: 'get',
         dataType: 'json'
-};
-Horns.prototype.readJson=function(pageNum) {
-    
+    };
+    $.ajax(`../data/page-${pageNum}.json`, ajaxSettings)
+        .then(data => {
+            data.forEach(horns => {
+                let item = new Horns(horns);
+                item.renderList();
+                item.renderOptions();
 
-// const readJson = (pageNum) => {
-    console.log(pageNum);
-$.ajax(`../data/page-${pageNum}.json`, ajaxSettings)
- .then(data => {
-    data.forEach(horns => {
-    let item = new Horns(horns);
-    item.renderList();
-    item.renderOptions();
-    
-    
-    
-  });
 
-});}
-Horns.prototype.readJson(1);
-$('select').on('change', function () {
-    let selectedValue = $(this).val();
-    $('ul').empty();
-    for (let i = 0; i < Horns.allArr.length; i++) {
+
+            });
+
+        });
+}
+$(document).ready(function () {
+
+
+
+    readJson(1);
+    $('select').on('change', function () {
+        let selectedValue = $(this).val();
+        $('ul').empty();
+        for (let i = 0; i < Horns.allArr.length; i++) {
             if (Horns.allArr[i].keyword === selectedValue) {
                 Horns.allArr[i].renderList();
             }
@@ -61,16 +68,16 @@ $('select').on('change', function () {
 
 // lab03
 // event for page1 button
-$('#page1').on('click', function (event) {
-    event.preventDefault();
-    console.log('hi');
+$('#page1').on('click', function () {
+
+
     $('select').empty();
-    Horns.allArr.forEach(item=>{
-        $('ul').empty();
-        item.readJson(1);
+    $('ul').empty();
+    readJson(1);
+    Horns.allArr.forEach(item => {
         item.renderList();
         item.renderOptions();
-        
+
 
     })
 
@@ -81,21 +88,20 @@ $('#page1').on('click', function (event) {
 
 })
 //event for page2 button
-$('#page2').on('click', function (event) {
-    event.preventDefault();
-    console.log('hello');
+$('#page2').on('click', function () {
+
 
     //call the render for page2 renderPage2();
     $('select').empty();
     // $('ul').hide();
+    readJson(2);
+    $('ul').empty();
 
-    Horns.allArr.forEach(item=>{
-        
-        $('ul').empty();
-        item.readJson(2);
+    Horns.allArr.forEach(item => {
+
         item.renderList();
         item.renderOptions();
-        
+
     })
     //call the options2 renderOptions2();
 
