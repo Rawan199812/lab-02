@@ -35,7 +35,7 @@ function readJson(pageNum) {
         method: 'get',
         dataType: 'json'
     };
-    $.ajax(`../data/page-${pageNum}.json`, ajaxSettings)
+    $.ajax(`./../data/page-${pageNum}.json`, ajaxSettings)
         .then(data => {
             data.forEach(horns => {
                 let item = new Horns(horns);
