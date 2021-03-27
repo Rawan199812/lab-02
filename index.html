@@ -18,13 +18,15 @@
             <option value="default">Select</option>
 
         </select>
+        <button id="page1">page1</button>
+        <button id="page2">page2</button>
     </header>
     <main>
 
         <input type="checkbox"id="title">
-        <label for="title">sort with title</label><br>
+        <label for="title">sort by title</label><br>
         <input type="checkbox"id="number">
-        <label for="horns">sort with horns </label>
+        <label for="horns">sort by horn </label>
 
 
         <ul>
@@ -33,8 +35,6 @@
             
         </ul>
         
-        <button id="page1">page1</button>
-        <button id="page2">page2</button>
         <template id="item-templet" type="text/x-tmpl-mustache">
             `<li>
                 <h2>{{title}}</h2>

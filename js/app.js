@@ -11,8 +11,8 @@ Horns.allArr = [];
 
 Horns.prototype.renderList = function () {
     let template = $('#item-templet').html();
-    let html1 = Mustache.render(template, this);
-    return html1;
+    let html = Mustache.render(template, this);
+    return html;
     ;
 
 };
