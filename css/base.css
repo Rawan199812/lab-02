@@ -27,6 +27,7 @@ ul li{
     padding: 20px;
     border: crimson solid 2px;
     background-color: rgb(248, 232, 235);
+   
     
 
 }
@@ -58,3 +59,22 @@ footer{
     flex-wrap: wrap;
     justify-content: space-around;
   }
+  button{
+      background-color: rgb(102, 177, 173);
+      color: cornsilk;
+  }
+  h2{
+      color: rgb(10, 41, 56);
+      text-align: center;
+      font-weight: 600;
+  }
+  header label{
+      text-align: center;
+      
+  }
+  select{
+      display: inline-block;
+      
+  }
+  
+

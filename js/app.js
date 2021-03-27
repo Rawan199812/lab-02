@@ -10,9 +10,10 @@ function Horns(item) {
 Horns.allArr = [];
 
 Horns.prototype.renderList = function () {
-    $('ul').append(`<li><img src=${this.image_url}><div>${this.title}</div><p>${this.description}</p></li>
-    
-    `);
+    let template = $('#item-templet').html();
+    let html = Mustache.render(template, this);
+    return html;
+    ;
 
 };
 Horns.prototype.renderOptions = function () {
@@ -26,8 +27,6 @@ Horns.prototype.renderOptions = function () {
 }
 function readJson(pageNum) {
 
-
-
     // const readJson = (pageNum) => {
     console.log(pageNum);
     Horns.allArr = [];
@@ -40,8 +39,10 @@ function readJson(pageNum) {
         .then(data => {
             data.forEach(horns => {
                 let item = new Horns(horns);
-                item.renderList();
+                $('ul').append(item.renderList());
                 item.renderOptions();
+                // item.title.toUpperCase();
+                // item.toUpperCase();
 
 
 
@@ -59,7 +60,8 @@ $(document).ready(function () {
         $('ul').empty();
         for (let i = 0; i < Horns.allArr.length; i++) {
             if (Horns.allArr[i].keyword === selectedValue) {
-                Horns.allArr[i].renderList();
+                // Horns.allArr[i].renderList();
+                $('ul').append(Horns.allArr[i].renderList());
             }
         }
 
@@ -75,16 +77,12 @@ $('#page1').on('click', function () {
     $('ul').empty();
     readJson(1);
     Horns.allArr.forEach(item => {
-        item.renderList();
-        item.renderOptions();
+        // item.renderList();
+        // item.renderOptions();
+        $('ul').append(item.renderList());
 
 
     })
-
-    // empty the option to render it $('select').empty();
-    // Horns.prototype.readJson(1);
-    // item.renderList();
-    // item.renderOptions();
 
 })
 //event for page2 button
@@ -99,11 +97,65 @@ $('#page2').on('click', function () {
 
     Horns.allArr.forEach(item => {
 
-        item.renderList();
-        item.renderOptions();
+        // item.renderList();
+        // item.renderOptions();
+        $('ul').append(item.renderList());
 
     })
     //call the options2 renderOptions2();
 
 })
+// sort numbers
+const sortByNumbers = (a, b) => { 
+        return a.horns - b.horns;
+    
+
+}
+//sort title
+const sortByTitle = (a, b) => {
+    //  title.toUpperCase();
+    if (a.title < b.title) {
+        return -1;
+    }
+    if (a.title == b.title) {
+        return 0;
+    }
+    if (a.title > b.title) {
+        return 1;
+    }
+};
+
+//event for checkbox
+$('#number').on('change',function() {
+
+    $('ul').empty();
+    // sortByNumbers(Horns.all);
+    Horns.allArr.sort(sortByNumbers)
+    Horns.allArr.forEach(item => {
+      $('ul').append(item.renderList());
+    });
+})
+
+$('#title').on('change', function () {
+    // console.log('title')
+    $('ul').empty();
+    // sortByTitle(Horns.allArr);
+    // Horns.allArr.toUpperCase().sort(sortByTitle)
+    
+    // Horns.allArr.sort(sortByTitle).toUpperCase()
+    Horns.allArr.sort(sortByTitle)
+    Horns.allArr.forEach(item => {
+      $('ul').append(item.renderList());
+    });
+  });
+  
+  
+// x='r';
+// console.log(x.toUpperCase());
+// let res = JSON.stringify(title, function() {
+//     return title.toUpperCase()
+//   });
+// console.log(res());
+
+
 
